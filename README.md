@@ -7,6 +7,7 @@ This README provides documentation for the Buy Now Pay Later (BNPL) webhook inte
 - [Installation](#installation)
 - [Webhook Format](#webhook-format)
 - [Status Types](#status-types)
+- [API Endpoints](#api-endpoints)
 - [Implementation Notes](#implementation-notes)
 - [Best Practices](#best-practices)
 
@@ -41,6 +42,34 @@ The webhook will notify you when a BNPL transaction transitions to any of the fo
 | `settled-merchant` | Funds have been settled with the merchant. |
 | `failed` | The BNPL transaction has failed for some reason (rejection, timeout, etc.). |
 | `completed` | The BNPL transaction has been successfully completed, with all payments made. |
+
+## API Endpoints
+
+### Status Query Endpoint
+You can query the current status of a BNPL request using the following endpoint:
+
+```
+GET {{base_url}}/bnplrequests/:reference/status
+```
+
+#### Parameters
+- `:reference` - The unique reference of the BNPL request
+
+#### Response
+```json
+{
+  "status": "initiated",
+  "reference": "BNPL-123456789",
+  "requestId": "5f8d0e1b2c3d4e5f6a7b8c9d",
+  "timestamp": "2025-04-09T12:34:56.789Z"
+}
+```
+
+#### Status Codes
+- `200 OK` - Request successful
+- `404 Not Found` - BNPL request not found
+- `401 Unauthorized` - Invalid or missing authentication
+- `500 Internal Server Error` - Server error
 
 ## Implementation Notes
 - Webhooks are processed asynchronously through a queue system
