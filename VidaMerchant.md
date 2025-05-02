@@ -77,6 +77,7 @@ Initiates a purchase transaction.
 
 ```javascript
 vidaMerchant.createPurchase({
+  profileID: "08012345678",
   reference: "ORDER-123",
   items: [
     { name: "Product 1", unitPrice: 5000, quantity: 2 }
@@ -114,6 +115,7 @@ const vidaMerchant = new VidaMerchant({
 
 document.getElementById("payButton").addEventListener("click", function() {
   vidaMerchant.createPurchase({
+    profileID: "08012345678",
     reference: "INV-" + Date.now(),
     items: [
       { name: "Premium Plan", unitPrice: 15000, quantity: 1 }
@@ -197,13 +199,17 @@ Each item in the `items` array should have:
 
 ## API Reference
 
-### Environment URLs
+### Environment URLs (Client)
 
 - **Production**: `https://app.mycreditprofile.me`
 - **Sandbox**: `https://vida-dashboard-git-ft-agiletech-veendhq-engineering.vercel.app`
 - **Local**: `http://localhost:3000`
 
-### Eligibility Endpoint
+### Eligibility Endpoint (Server)
+
+- **Production**: `https://api.askvida.com`
+- **Sandbox**: `https://vida-dev.veendhq.com`
+
 
 ```
 GET /bnplrequests/eligibility
@@ -216,7 +222,8 @@ Header Parameters:
 - `clientId`: Your client ID
 
 Response Parameters:
-- `bnplEligibility`: Your username
+- `bnplEligibility`: Your user eligibility
+- `profileID`: Your username
 - `status`: Your user registration status
 
 ## Troubleshooting
