@@ -46,6 +46,7 @@ Include the VidaMerchant SDK in your HTML file:
       });
       
       vidaMerchant.createPurchase({
+        profileID: "08012345678",
         reference: "ORDER-123",
         items: [{ name: "Product", unitPrice: 5000, quantity: 1 }],
         totalAmount: 5000
@@ -171,6 +172,7 @@ window.addEventListener("message", event => {
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
+| `profileID` | string | Yes | User unique profileID returned during eligibility check  |
 | `reference` | string | Yes | Your unique reference identifier |
 | `items` | array | Yes | Array of items being purchased |
 | `totalAmount` | number | Yes | Total purchase amount (in smallest currency unit) |
@@ -201,16 +203,21 @@ Each item in the `items` array should have:
 - **Sandbox**: `https://vida-dashboard-git-ft-agiletech-veendhq-engineering.vercel.app`
 - **Local**: `http://localhost:3000`
 
-### Authorization Endpoint
+### Eligibility Endpoint
 
 ```
-GET /authorization/merchants
+GET /bnplrequests/eligibility
 ```
 
 Query Parameters:
-- `client_id`: Your OAuth client ID
-- `client_secret`: Your OAuth client secret
-- `redirect_url`: (Optional) Redirect URL after completion
+- `username`: Your username
+
+Header Parameters:
+- `clientId`: Your client ID
+
+Response Parameters:
+- `bnplEligibility`: Your username
+- `status`: Your user registration status
 
 ## Troubleshooting
 
